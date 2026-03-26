@@ -59,6 +59,17 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	{
 		PrintDamageConstRef(Damage);
 	}
+
+	FCollisionShape Sphere = FCollisionShape::MakeSphere(GrabRadius);
+	FHitResult HitResult;
+	bool HasHit = GetWorld()->
+		SweepSingleByChannel(HitResult, Start, End, FQuat::Identity, ECC_GameTraceChannel2, Sphere);
+
+	if (HasHit)
+	{
+		FString HitActorName = HitResult.GetActor()->GetActorNameOrLabel();
+		UE_LOG(LogTemp, Display, TEXT("Hit Result: %s"), *HitActorName);
+	}
 }
 
 void UGrabber::PrintDamage(float Damage)
