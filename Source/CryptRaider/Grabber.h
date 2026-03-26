@@ -28,4 +28,15 @@ public:
 private:
 	UPROPERTY(EditAnywhere)
 	float MaxGrabDistance = 400;
+
+	void PrintDamage(float Damage);
+
+	void PrintDamageRef(float& Damage);
+
+	void PrintDamageConstRef(const float& Damage);
+
+	// Out Parameter (출력 매개변수)
+	// 출력용으로 사용할 목적의 매개변수
+	// 힌트를 주기 위해 변수의 앞에 'Out'을 붙인다.
+	bool HasDamage(float& OutDamage);
 };

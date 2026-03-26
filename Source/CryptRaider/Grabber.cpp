@@ -41,4 +41,45 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	FVector Start = GetComponentLocation();
 	FVector End = Start + GetForwardVector() * MaxGrabDistance;
 	DrawDebugLine(GetWorld(), Start, End, FColor::Red);
+
+	// float Damage = 0;
+	// float& DamageRef = Damage;
+	// DamageRef = 5;
+	// UE_LOG(LogTemp, Display, TEXT("Damage: %f"), Damage);
+	// UE_LOG(LogTemp, Display, TEXT("DamageRef: %f"), DamageRef);
+
+	// PrintDamage(Damage);
+	// PrintDamageRef(Damage);
+
+	// Out Parameter를 사용하게 되면
+	// 출력용으로 사용되기 때문에 변수를 초기화 할 필요가 없다는
+	// 문법적 규칙을 가지고 있다.
+	float Damage;
+	if (HasDamage(Damage))
+	{
+		PrintDamageConstRef(Damage);
+	}
+}
+
+void UGrabber::PrintDamage(float Damage)
+{
+	Damage = 5;
+	UE_LOG(LogTemp, Display, TEXT("Damage: %f"), Damage);
+}
+
+void UGrabber::PrintDamageRef(float& Damage)
+{
+	Damage = 10;
+	UE_LOG(LogTemp, Display, TEXT("Damage: %f"), Damage);
+}
+
+void UGrabber::PrintDamageConstRef(const float& Damage)
+{
+	UE_LOG(LogTemp, Display, TEXT("Damage: %f"), Damage);
+}
+
+bool UGrabber::HasDamage(float& OutDamage)
+{
+	OutDamage = 10;
+	return true;
 }
