@@ -25,6 +25,12 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 	                           FActorComponentTickFunction* ThisTickFunction) override;
 
+	UFUNCTION(BlueprintCallable)
+	void Trigger();
+
+	UFUNCTION(BlueprintCallable)
+	void Grab();
+
 private:
 	UPROPERTY(EditAnywhere)
 	float MaxGrabDistance = 400;

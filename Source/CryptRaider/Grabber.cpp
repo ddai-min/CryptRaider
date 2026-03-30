@@ -38,10 +38,6 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	// double TimeSeconds = GetWorld()->TimeSeconds;
 	// UE_LOG(LogTemp, Display, TEXT("Time Seconds: %f"), TimeSeconds);
 
-	FVector Start = GetComponentLocation();
-	FVector End = Start + GetForwardVector() * MaxGrabDistance;
-	DrawDebugLine(GetWorld(), Start, End, FColor::Red);
-
 	// float Damage = 0;
 	// float& DamageRef = Damage;
 	// DamageRef = 5;
@@ -54,11 +50,23 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	// Out Parameter를 사용하게 되면
 	// 출력용으로 사용되기 때문에 변수를 초기화 할 필요가 없다는
 	// 문법적 규칙을 가지고 있다.
-	float Damage;
-	if (HasDamage(Damage))
-	{
-		PrintDamageConstRef(Damage);
-	}
+	// float Damage;
+	// if (HasDamage(Damage))
+	// {
+	// 	PrintDamageConstRef(Damage);
+	// }
+}
+
+void UGrabber::Trigger()
+{
+	UE_LOG(LogTemp, Display, TEXT("Triggered Grabber"));
+}
+
+void UGrabber::Grab()
+{
+	FVector Start = GetComponentLocation();
+	FVector End = Start + GetForwardVector() * MaxGrabDistance;
+	DrawDebugLine(GetWorld(), Start, End, FColor::Red);
 
 	FCollisionShape Sphere = FCollisionShape::MakeSphere(GrabRadius);
 	FHitResult HitResult;
@@ -69,6 +77,10 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 	{
 		FString HitActorName = HitResult.GetActor()->GetActorNameOrLabel();
 		UE_LOG(LogTemp, Display, TEXT("Hit Result: %s"), *HitActorName);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Display, TEXT("No hit result"));
 	}
 }
 
